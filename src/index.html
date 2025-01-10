@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My University</title>
+    <link rel="stylesheet" href="./css/index.css">
+  </head>
+  <body>
+    <h1>Facudades</h1>
+    <table class="table_container">
+      <tr>
+        <th>Facudade</th>
+        <th>Ranking</th>
+        <th>Link</th>
+        <th>Cursos</th>
+      </tr>
+    </table>
+
+    <dialog>
+      <h2>Cursos</h2>
+      <table class="table_container modal">
+        <tr>
+          <th>Curso</th>
+          <th>Duração</th>
+          <th>Periodo</th>
+        </tr>
+      </table>
+      <button class="closeModal">close</button>
+    </dialog>
+    <script>
+      const table = document.querySelector(".table_container");
+      const tableModal = document.querySelector("table.modal");
+      const btnCloseModal = document.querySelector(".closeModal");
+      const dialog = document.querySelector("dialog");
+      const placeInfo = async () => {
+        const data = await fetch("/api/tables/getFacul").then((res) =>
+          res.json()
+        );
+        data.forEach(({ facul_id, name, ranking, link }) => {
+          const tr = document.createElement("tr");
+          const tdFacul = document.createElement("td");
+          tdFacul.innerText = name;
+          const tdRank = document.createElement("td");
+          tdRank.innerText = ranking + "º";
+          const tdLink = document.createElement("td");
+          const absoluteLink = document.createElement("a");
+          absoluteLink.innerText = "Link";
+          absoluteLink.href = link;
+          const tdCourses = document.createElement("td");
+          tdCourses.innerText = "Mostrar";
+          tdCourses.id = facul_id;
+          tdCourses.addEventListener("click", openModal);
+
+          tr.appendChild(tdFacul);
+          tr.appendChild(tdRank);
+          tr.appendChild(tdLink);
+          tdLink.appendChild(absoluteLink);
+          tr.appendChild(tdCourses);
+          table.appendChild(tr);
+        });
+      };
+      const openModal = async (e) => {
+        tableModal.innerHTML = `        <tr>
+          <th>Curso</th>
+          <th>Duração</th>
+          <th>Periodo</th>
+        </tr>`;
+        const data = await fetch(
+          `/api/tables/getCourses?id=${e.target.id}`
+        ).then((res) => res.json());
+
+        console.log("aaa");
+
+        data.forEach(({ name, duration, period }) => {
+          const tr = document.createElement("tr");
+          const tdCourse = document.createElement("td");
+          tdCourse.innerText = name;
+          const tdDuration = document.createElement("td");
+          tdDuration.innerText = duration;
+          const tdPeriod = document.createElement("td");
+          tdPeriod.innerText = period;
+
+          tr.appendChild(tdCourse);
+          tr.appendChild(tdDuration);
+          tr.appendChild(tdPeriod);
+          tableModal.appendChild(tr);
+        });
+        dialog.showModal();
+      };
+      btnCloseModal.addEventListener("click", () => dialog.close());
+      placeInfo();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Domine:wght@400..700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #f1f1f1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  gap: 2rem;
+}
+h1,
+h2 {
+  width: 100%;
+  padding: 2rem;
+  font-size: 2.5rem;
+  text-align: center;
+  border-bottom: 4px solid #000;
+  font-family: "Domine", serif;
+}
+
+table {
+  border-collapse: collapse;
+  width: 80%;
+  /* background: #000; */
+}
+tr {
+  border-bottom: 2px solid #3b3e55;
+  color: #1b1e33;
+}
+table tr th {
+  color: #1b1e33;
+  padding: 0.25rem 1rem;
+  font-weight: 700;
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  font-family: "Domine", serif;
+}
+table tr td {
+  text-align: center;
+  padding: 0.5rem 0;
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+}
+table tr.tr_content:hover {
+  background-color: #3b3e55;
+  color: #fff;
+}
+table tr.tr_content td:hover {
+  background-color: #1b1e33;
+  color: #fff;
+  font-weight: 700;
+}
+dialog[open] {
+  position: absolute;
+  inset: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  background-color: #f1f1f1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0 0 2rem 0;
+  border-radius: 0.5rem;
+}
+h2 {
+  padding-inline: 6rem;
+}
+body:has(dialog[open])::before {
+  content: "";
+  inset: 0;
+  background: #000;
+  position: absolute;
+  opacity: 0.5;
+}
+button {
+  font-size: 1rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.5rem;
+  background: #1b1e33;
+  color: #fff;
+}
