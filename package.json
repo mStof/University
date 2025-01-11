@@ -1,13 +1,13 @@
 {
   "name": "fucullist",
   "version": "1.0.0",
-  "main": "./src/index.js",
+  "main": "./src/app.js",
   "engines": {
     "node": "22.x"
 },
   "scripts": {
-    "dev": "nodemon ./src/index.js",
-    "start": "node ./src/index.js"
+    "dev": "nodemon ./src/app.js",
+    "start": "node ./src/app.js"
   },
   "dependencies": {
     "express": "^4.21.2",
